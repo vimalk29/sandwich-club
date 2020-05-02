@@ -22,13 +22,10 @@ public class JsonUtils {
         if (json == null || json.isEmpty()) {
             return null;
         }
-
         try {
             Sandwich sandwich = new Sandwich();
-
             JSONObject sandwichJsonObject = new JSONObject(json);
 
-            //parse the "name" JSON object first
             JSONObject nameJsonObject = sandwichJsonObject.getJSONObject("name");
 
             mainName = nameJsonObject.getString("mainName");
@@ -36,23 +33,22 @@ public class JsonUtils {
             description = sandwichJsonObject.getString("description");
             image = sandwichJsonObject.getString("image");
 
-            JSONArray alsoKnownAsJsonArray = nameJsonObject.getJSONArray("alsoKnownAs");
-            if (alsoKnownAsJsonArray != null) {
+            JSONArray alsoKnownAsArray = nameJsonObject.getJSONArray("alsoKnownAs");
+            if (alsoKnownAsArray!= null) {
                 List<String> alsoKnownAsList = new ArrayList<>();
-                for (int i = 0; i < alsoKnownAsJsonArray.length(); i++) {
-                    alsoKnownAsList.add(alsoKnownAsJsonArray.getString(i));
+                for (int i = 0; i < alsoKnownAsArray.length(); i++) {
+                    alsoKnownAsList.add(alsoKnownAsArray.getString(i));
                 }
                 sandwich.setAlsoKnownAs(alsoKnownAsList);
             }
-            JSONArray ingredientsJsonArray = sandwichJsonObject.getJSONArray("ingredients");
-            if (ingredientsJsonArray != null) {
+            JSONArray ingredientsArray = sandwichJsonObject.getJSONArray("ingredients");
+            if (ingredientsArray  != null) {
                 List<String> ingredientsList = new ArrayList<>();
-                for (int i = 0; i < ingredientsJsonArray.length(); i++) {
-                    ingredientsList.add(ingredientsJsonArray.getString(i));
+                for (int i = 0; i < ingredientsArray .length(); i++) {
+                    ingredientsList.add(ingredientsArray.getString(i));
                 }
                 sandwich.setIngredients(ingredientsList);
             }
-
 
             sandwich.setMainName(mainName);
             sandwich.setPlaceOfOrigin(placeOfOrigin);
